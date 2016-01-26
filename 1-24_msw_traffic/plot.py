@@ -86,7 +86,7 @@ def column(matrix, i):
 
 # ----------------------------------------------------------------------
 # outfile load and plot
-dim = 11;
+dim = 1;
 recv1_2D = [];
 recv2_2D = [];
 recv3_2D = [];
@@ -264,7 +264,7 @@ for row_i in range(0,len(recv1_2D[0])-1):
 	#print np.std(col_value)
 	#print column(recv1_2D, row_i)
 
-inv = 10;
+inv = 1;
 figure_name = 'figure/std_res_'+prefix +str(0)+count_str+str(i)+'.jpg'
 plot_error(figure_name, time_data[0::inv], recv1_avg[0::inv], recv2, recv3, recv1_std[0::inv], 1, 2)
 
@@ -293,4 +293,33 @@ figure_name = 'figure/std_res_t_'+prefix +str(2)+count_str+str(i)+'.jpg'
 plot_error(figure_name, time_data[0::inv], recv3_avg_t[0::inv], recv2, recv3, recv3_std_t[0::inv], 1, 2)
 
 
+# load traffic
 
+prefix = 'outfile0_simple_120_0.1_tstNum_2000000_b1000_s'
+count_str='_c'
+postfix='.csv'
+file_name = prefix+str(0)+count_str+str(i)+postfix
+recv1, recv2 = read_csv_data(file_name, 55, 57)
+file_name = prefix+str(0)+count_str+str(i)+postfix
+recv3, recv4 = read_csv_data(file_name, 59, 67)
+
+file_name = prefix+str(0)+count_str+str(i)+postfix
+recv5, recv6 = read_csv_data(file_name, 69, 71)
+
+figure_name = 'figure/taffic_res1_'+prefix +str(0)+count_str+str(i)+'.jpg'
+plot_line(figure_name, recv1, recv2, recv3, 1)
+
+figure_name = 'figure/taffic_res2_'+prefix +str(0)+count_str+str(i)+'.jpg'
+plot_line(figure_name, recv2, recv2, recv3, 1)
+
+figure_name = 'figure/taffic_res3_'+prefix +str(0)+count_str+str(i)+'.jpg'
+plot_line(figure_name, recv3, recv2, recv3, 1)
+
+figure_name = 'figure/taffic_res1_avg_'+prefix +str(0)+count_str+str(i)+'.jpg'
+plot_line(figure_name, recv4, recv2, recv3, 1)
+
+figure_name = 'figure/taffic_res2_avg_'+prefix +str(0)+count_str+str(i)+'.jpg'
+plot_line(figure_name, recv5, recv2, recv3, 1)
+
+figure_name = 'figure/taffic_res3_avg_'+prefix +str(0)+count_str+str(i)+'.jpg'
+plot_line(figure_name, recv6, recv2, recv3, 1)
