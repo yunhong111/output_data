@@ -99,7 +99,7 @@ def addToFile(file_name, what):
 
 # ----------------------------------------------------------------------
 # outfile load and plot
-dim = 11;
+dim = 10;
 
 recv1_2D = [];
 recv2_2D = [];
@@ -167,7 +167,9 @@ print recv2_stime_std
 print recv3_stime_std
 
 file_name = para_str+'_summary'+str(setlint_time_range)+'.csv'
-#open(file_name,'w')
+addToFile(file_name, para_str+',Recv1_avg_time,Recv2_avg_time,Recv3_avg_time,Recv1_std_time,Recv2_std_time,Recv3_std_time,settling_time,settling_time_std,recv1_mean_stable_value,recv2_mean_stable_value,recv3_mean_stable_value,recv1_std_stable_value,recv2_std_stable_value,recv3_std_stable_value,stable_value,stable_value_std\n')
+
+addToFile(file_name, str(alpha)+',')
 addToFile(file_name, str(recv1_stime_avg)+',')
 addToFile(file_name, str(recv2_stime_avg)+',')
 addToFile(file_name, str(recv3_stime_avg)+',')
@@ -175,6 +177,15 @@ addToFile(file_name, str(recv3_stime_avg)+',')
 addToFile(file_name, str(recv1_stime_std)+',')
 addToFile(file_name, str(recv2_stime_std)+',')
 addToFile(file_name, str(recv3_stime_std)+',')
+
+# ----------------------------------------------------------------------
+# compute max settling time
+max_stime = max([recv1_stime_avg, recv2_stime_avg,recv3_stime_avg])
+max_stime_std = max([recv1_stime_std,recv2_stime_std,recv3_stime_std])
+print max_stime
+
+addToFile(file_name, str(max_stime)+',')
+addToFile(file_name, str(max_stime_std)+',')
 	
 # ----------------------------------------------------------------------	
 # compute average and stdev and plot error bar
@@ -191,26 +202,33 @@ recv1_stable_std = 0;
 recv2_stable_std = 0;
 recv3_stable_std = 0;
 
-for row_i in range(0,len(recv1_2D[0])-1):
+recv1_stable_mean = 0
+recv2_stable_mean = 0
+recv3_stable_mean = 0
+
+for row_i in range(0,len(recv1_2D[0])-5):
 	col_value = column(recv1_2D, row_i);
 	recv1_avg.append(np.mean(col_value))
 	recv1_std.append(np.std(col_value))
 
-	if(row_i > recv1_stime_avg):
+	if(row_i > max_stime_std):
+		recv1_stable_mean = recv1_stable_mean + np.mean(col_value)
 		recv1_stable_std = recv1_stable_std + math.pow(np.std(col_value),2)
 	
 	col_value = column(recv2_2D, row_i);
 	recv2_avg.append(np.mean(col_value))
 	recv2_std.append(np.std(col_value))
 
-	if(row_i > recv2_stime_avg):
+	if(row_i > max_stime_std):
+		recv2_stable_mean = recv2_stable_mean + np.mean(col_value)
 		recv2_stable_std = recv2_stable_std + math.pow(np.std(col_value),2)
 	
 	col_value = column(recv3_2D, row_i);
 	recv3_avg.append(np.mean(col_value))
 	recv3_std.append(np.std(col_value))
 
-	if(row_i > recv3_stime_avg):
+	if(row_i > max_stime_std):
+		recv3_stable_mean = recv3_stable_mean + np.mean(col_value)
 		recv3_stable_std = recv3_stable_std + math.pow(np.std(col_value),2)
 	
 	time_data.append(row_i)
@@ -226,9 +244,13 @@ figure_name = 'figure/std_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)
 plot_error(figure_name, time_data[0::100], recv3_avg[0::100], recv2, recv3, recv3_std[0::100], 1, 1)
 
 # compute total sample variance
-recv1_stable_std_t = math.sqrt(recv1_stable_std/(len(recv1_2D[0])-1-recv1_stime_avg))
-recv2_stable_std_t = math.sqrt(recv2_stable_std/(len(recv1_2D[0])-1-recv2_stime_avg))
-recv3_stable_std_t = math.sqrt(recv3_stable_std/(len(recv1_2D[0])-1-recv3_stime_avg))
+recv1_stable_std_t = math.sqrt(recv1_stable_std/(len(recv1_2D[0])-5-max_stime_std))
+recv2_stable_std_t = math.sqrt(recv2_stable_std/(len(recv1_2D[0])-5-max_stime_std))
+recv3_stable_std_t = math.sqrt(recv3_stable_std/(len(recv1_2D[0])-5-max_stime_std))
+
+recv1_stable_mean_t = (recv1_stable_mean/(len(recv1_2D[0])-5-max_stime_std))
+recv2_stable_mean_t = (recv2_stable_mean/(len(recv1_2D[0])-5-max_stime_std))
+recv3_stable_mean_t = (recv3_stable_mean/(len(recv1_2D[0])-5-max_stime_std))
 
 # print the last stdev
 #print recv1_std[len(recv1_2D[0])-2], recv2_std[len(recv1_2D[0])-2], recv3_std[len(recv1_2D[0])-2]
@@ -237,9 +259,20 @@ print recv1_stable_std_t
 print recv2_stable_std_t
 print recv3_stable_std_t
 
+addToFile(file_name, str(recv1_stable_mean_t)+',')
+addToFile(file_name, str(recv2_stable_mean_t)+',')
+addToFile(file_name, str(recv3_stable_mean_t)+',')
+
 addToFile(file_name, str(recv1_stable_std_t)+',')
 addToFile(file_name, str(recv2_stable_std_t)+',')
-addToFile(file_name, str(recv3_stable_std_t)+'\n')
+addToFile(file_name, str(recv3_stable_std_t)+',')
+
+# compute total mean and variance
+stable_mean_t = np.mean([recv1_stable_mean_t,recv2_stable_mean_t,recv3_stable_mean_t])
+stable_std_t = np.mean([recv1_stable_std_t,recv2_stable_std_t,recv3_stable_std_t])
+
+addToFile(file_name, str(stable_mean_t)+',')
+addToFile(file_name, str(stable_std_t)+'\n')
 
 # ----------------------------------------------------------------------
 # resource file load and plot

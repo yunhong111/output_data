@@ -1,0 +1,2 @@
+alpha,Recv1_avg_time,Recv2_avg_time,Recv3_avg_time,Recv1_std_time,Recv2_std_time,Recv3_std_time,settling_time,settling_time_std,recv1_mean_stable_value,recv2_mean_stable_value,recv3_mean_stable_value,recv1_std_stable_value,recv2_std_stable_value,recv3_std_stable_value,stable_value,stable_value_std
+0.1,515.7,472.0,1012.3,880.259512871,445.687558722,146.589938263,1012.3,880.259512871,0.00833359202082,0.00747594677055,0.00800234429876,0.001140215813,0.000978114193989,0.000744898578459,0.00793729436337,0.000954409528481

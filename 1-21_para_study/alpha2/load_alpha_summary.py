@@ -11,19 +11,21 @@ def plot_error(figure_name, x_data1, data1, data2, data3, y_error, data_dim, dat
 	#plt.plot(data2)
 	#plt.plot(data3)
 	if(data_type == 1):
-		plt.xlabel('Time (s)')
-		plt.ylabel('Average setling time')
-		plt.xlim(0.0,1.0)
+		plt.xlabel('Alpha')
+		plt.ylabel('Average settling time (s)')
+		
 	if(data_type == 2):
-		plt.xlabel('Ebuse')
-		plt.ylabel('#slots')
+		plt.xlabel('Alpha')
+		plt.ylabel('Overselection Rate')
 	plt.grid()
+	plt.xlim(0.0,1.0)
+	plt.tight_layout()
 	plt.savefig(figure_name)
 	plt.close()
 	
 # load the summary file
 setling_time_range = 0.1
-file_name = 'ebuse_summary'+str(setling_time_range)+'.csv'
+file_name = 'alpha_summary'+str(setling_time_range)+'.csv'
 from collections import defaultdict
 
 columns = defaultdict(list) # each value in each column is appended to a list
@@ -40,10 +42,18 @@ print(columns['Recv1_avg_time'])
 recv2=[]
 recv3=[]
 figure_name = 'figure/std_alpha_recv1'+str(setling_time_range)+'.jpg'
-plot_error(figure_name, columns['ebuse'], columns['Recv1_avg_time'], recv2, recv3, columns['Recv1_std_time'], 1, 1)
+plot_error(figure_name, columns['alpha'], columns['Recv1_avg_time'], recv2, recv3, columns['Recv1_std_time'], 1, 1)
 
 figure_name = 'figure/std_alpha_recv2'+str(setling_time_range)+'.jpg'
-plot_error(figure_name, columns['ebuse'], columns['Recv2_avg_time'], recv2, recv3, columns['Recv2_std_time'], 1, 1)
+plot_error(figure_name, columns['alpha'], columns['Recv2_avg_time'], recv2, recv3, columns['Recv2_std_time'], 1, 1)
 
 figure_name = 'figure/std_alpha_recv3'+str(setling_time_range)+'.jpg'
-plot_error(figure_name, columns['ebuse'], columns['Recv3_avg_time'], recv2, recv3, columns['Recv3_std_time'], 1, 1)
+plot_error(figure_name, columns['alpha'], columns['Recv3_avg_time'], recv2, recv3, columns['Recv3_std_time'], 1, 1)
+
+figure_name = 'figure/std_alpha_total'+str(setling_time_range)+'.jpg'
+plot_error(figure_name, columns['alpha'], columns['settling_time'], recv2, recv3, columns['settling_time_std'], 1, 1)
+
+figure_name = 'figure/std_alpha_total_stable_mean'+str(setling_time_range)+'.jpg'
+plot_error(figure_name, columns['alpha'], columns['stable_value'], recv2, recv3, columns['stable_value_std'], 1, 2)
+
+
