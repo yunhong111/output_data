@@ -74,8 +74,10 @@ def plot_error(figure_name, x_data1, data1, data2, data3, y_error, data_dim, dat
 	fig = plt.gcf()
 	fig.set_size_inches(6, 4.5)
 	
-	plt.plot(x_data1, data1, linestyle="dashed", marker="o", color="green")
-	plt.errorbar(x_data1, data1,yerr=y_error, linestyle="None", marker="None", color="green")
+	textsize = 9
+	plt.plot(x_data1, data1, linestyle="dashed", marker="o", color='blue', linewidth=0.5)
+	
+	plt.errorbar(x_data1, data1,yerr=y_error, linestyle="None", marker="None", color="red")
 	#plt.plot(data2)
 	#plt.plot(data3)
 	if(data_type == 1):
@@ -85,10 +87,34 @@ def plot_error(figure_name, x_data1, data1, data2, data3, y_error, data_dim, dat
 	if(data_type == 2):
 		plt.xlabel('Time (s)')
 		plt.ylabel('#slots')
+		plt.ylim(0.0,800)
 	plt.grid()
 	plt.tight_layout()
 	plt.savefig(figure_name)
-	plt.close()	
+	plt.close()
+
+# subplot
+def plot_error_sub(plt, subplot_seq, figure_name, x_data1, data1, data2, data3, y_error, data_dim, data_type):
+	
+	plt.subplot(subplot_seq)
+	
+	textsize = 9
+	plt.plot(x_data1, data1, linestyle="dashed", marker="o", color='blue', linewidth=0.5)
+	
+	plt.errorbar(x_data1, data1,yerr=y_error, linestyle="None", marker="None", color="red")
+	#plt.plot(data2)
+	#plt.plot(data3)
+	if(data_type == 1):
+		plt.xlabel('Time (s)')
+		plt.ylabel('Overselection Rate')
+		plt.ylim(0.0,0.03)
+	if(data_type == 2):
+		plt.xlabel('Time (s)')
+		plt.ylabel('#slots')
+		plt.ylim(0.0,800)
+	plt.grid()
+	plt.tight_layout()
+
 		
 def column(matrix, i):
     return [row[i] for row in matrix]
@@ -233,7 +259,7 @@ recv2_stable_mean = 0
 recv3_stable_mean = 0
 recv4_stable_mean = 0
 
-for row_i in range(0,len(recv1_2D[0])-5):
+for row_i in range(0,len(recv1_2D[0])-1):
 	col_value = column(recv1_2D, row_i);
 	recv1_avg.append(np.mean(col_value))
 	recv1_std.append(np.std(col_value))
@@ -282,6 +308,23 @@ plot_error(figure_name, time_data[0::100], recv3_avg[0::100], recv2, recv3, recv
 figure_name = 'figure/std_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 plot_error(figure_name, time_data[0::100], recv4_avg[0::100], recv3, recv4, recv4_std[0::100], 1, 1)
 
+# subplot
+
+fig = plt.gcf()
+fig.set_size_inches(8, 6.5)
+
+figure_name = 'figure/std_avg.jpg'
+plot_error_sub(plt, 221, figure_name, time_data[0::100], recv1_avg[0::100], recv2, recv3, recv1_std[0::100], 1, 1)
+
+plot_error_sub(plt, 222, figure_name, time_data[0::100], recv2_avg[0::100], recv2, recv3, recv2_std[0::100], 1, 1)
+
+
+plot_error_sub(plt, 223, figure_name, time_data[0::100], recv3_avg[0::100], recv2, recv3, recv3_std[0::100], 1, 1)
+
+plot_error_sub(plt, 224, figure_name, time_data[0::100], recv4_avg[0::100], recv3, recv4, recv4_std[0::100], 1, 1)
+
+plt.savefig(figure_name)
+plt.close()
 # compute total sample variance
 recv1_stable_std_t = math.sqrt(recv1_stable_std/(len(recv1_2D[0])-5-max_stime_std))
 recv2_stable_std_t = math.sqrt(recv2_stable_std/(len(recv1_2D[0])-5-max_stime_std))
@@ -418,23 +461,61 @@ for row_i in range(0,len(recv1_2D[0])-1):
 	#print column(recv1_2D, row_i)
 
 inv = 10;
+time_inv = 0;
+time_inv_vec = []
+recv1_avg_inv = []
+recv1_std_inv = []
+recv2_avg_inv = []
+recv2_std_inv = []
+recv3_avg_inv = []
+recv3_std_inv = []
+recv4_avg_inv = []
+recv4_std_inv = []
+# sliding average over over inv elts
+for row_i in range(0,len(recv1_2D[0])-inv):
+	print recv1_avg[time_inv:time_inv+inv]
+	recv1_avg_inv.append(np.mean(recv1_avg[time_inv:time_inv+inv]));
+	recv2_avg_inv.append(np.mean(recv2_avg[time_inv:time_inv+inv]));
+	recv3_avg_inv.append(np.mean(recv3_avg[time_inv:time_inv+inv]));
+	recv4_avg_inv.append(np.mean(recv4_avg[time_inv:time_inv+inv]));
+
+	recv1_std_inv.append(0);
+	recv2_std_inv.append(0);
+	recv3_std_inv.append(0);
+	recv4_std_inv.append(0);
+	
+	time_inv_vec.append(time_inv*5);
+	time_inv = time_inv + 1;
+print recv1_avg_inv
 figure_name = 'figure/std_res_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
-plot_error(figure_name, time_data[0::inv], recv1_avg[0::inv], recv2, recv3, recv1_std[0::inv], 1, 2)
+plot_error(figure_name, time_inv_vec[0::inv], recv1_avg_inv[0::inv], recv2, recv3, recv1_std_inv[0::inv], 1, 2)
 
 figure_name = 'figure/std_res_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
-plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, 2)
+#plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, 2)
+plot_error(figure_name, time_inv_vec[0::inv], recv2_avg_inv[0::inv], recv2, recv3, recv2_std_inv[0::inv], 1, 2)
 
 figure_name = 'figure/std_res_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
-plot_error(figure_name, time_data[0::inv], recv3_avg[0::inv], recv2, recv3, recv3_std[0::inv], 1, 2)
+plot_error(figure_name, time_inv_vec[0::inv], recv3_avg_inv[0::inv], recv2, recv3, recv3_std_inv[0::inv], 1, 2)
 
 figure_name = 'figure/std_res_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
-plot_error(figure_name, time_data[0::inv], recv4_avg[0::inv], recv2, recv3, recv4_std[0::inv], 1, 2)
+plot_error(figure_name, time_inv_vec[0::inv], recv4_avg_inv[0::inv], recv2, recv3, recv4_std_inv[0::inv], 1, 2)
 
-figure_name = 'figure/std_res_'+prefix +str(4)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+# subfigure
+fig = plt.gcf()
+fig.set_size_inches(8, 6.5)
 
+figure_name = 'figure/std_res.jpg'
+plot_error_sub(plt, 221, figure_name, time_inv_vec[0::inv], recv1_avg_inv[0::inv], recv2, recv3, recv1_std_inv[0::inv], 1, 2)
 
+#plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, 2)
+plot_error_sub(plt, 222, figure_name, time_inv_vec[0::inv], recv2_avg_inv[0::inv], recv2, recv3, recv2_std_inv[0::inv], 1, 2)
 
+plot_error_sub(plt, 223, figure_name, time_inv_vec[0::inv], recv3_avg_inv[0::inv], recv2, recv3, recv3_std_inv[0::inv], 1, 2)
 
+plot_error_sub(plt, 224, figure_name, time_inv_vec[0::inv], recv4_avg_inv[0::inv], recv2, recv3, recv4_std_inv[0::inv], 1, 2)
+
+plt.savefig(figure_name)
+plt.close()
 
 
 
