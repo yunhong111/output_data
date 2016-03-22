@@ -2,6 +2,7 @@
 
 import csv
 import matplotlib.pyplot as plt
+import matplotlib as mlib
 import numpy as np
 import math 
 #import statistics as st
@@ -73,8 +74,9 @@ def plot_line(figure_name, data1, data2, data3, data_dim):
 def plot_error(figure_name, x_data1, data1, data2, data3, y_error, data_dim, data_type):
 	fig = plt.gcf()
 	fig.set_size_inches(6, 4.5)
+	mlib.rcParams.update({'font.size': 14})
 	
-	plt.plot(x_data1, data1, linestyle="dashed", marker="o", color="green")
+	plt.plot(x_data1, data1, linestyle="dashed", marker="o", color="blue")
 	plt.errorbar(x_data1, data1,yerr=y_error, linestyle="None", marker="None", color="green")
 	#plt.plot(data2)
 	#plt.plot(data3)
@@ -87,7 +89,7 @@ def plot_error(figure_name, x_data1, data1, data2, data3, y_error, data_dim, dat
 		plt.ylabel('#slots')
 	plt.grid()
 	plt.tight_layout()
-	plt.savefig(figure_name)
+	plt.savefig(figure_name, dpi = 300)
 	plt.close()	
 		
 def column(matrix, i):
@@ -142,7 +144,7 @@ for i in range(0,dim):
 	file_name = prefix+str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+postfix
 	recv3, recv4 = read_csv_data(file_name, 23, 25)
 
-	figure_name = 'figure/'+prefix +str(0)+count_str+str(i)+'.jpg'
+	figure_name = 'figure/'+prefix +str(0)+count_str+str(i)+'.pdf'
 	#plot_data(figure_name, recv1, recv2, recv3, 3)
 	
 	print i
@@ -248,14 +250,14 @@ for row_i in range(0,len(recv1_2D[0])-5):
 	
 	time_data.append(row_i)
 
-figure_name = 'figure/std_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::100], recv1_avg[0::100], recv2, recv3, recv1_std[0::100], 1, 1)
 
-figure_name = 'figure/std_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::100], recv2_avg[0::100], recv2, recv3, recv2_std[0::100], 1, 1)
 
 
-figure_name = 'figure/std_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::100], recv3_avg[0::100], recv2, recv3, recv3_std[0::100], 1, 1)
 
 # compute total sample variance
@@ -315,22 +317,22 @@ for i in range(0,dim):
 	file_name = file_name = prefix+str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+postfix
 	recv5, recv6 = read_csv_data(file_name, 0,1)
 
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
 	#plot_data(figure_name, recv1, recv2, recv3, 1)
 	
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
 	#plot_data(figure_name, recv2, recv2, recv3, 1)
 	
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
 	#plot_data(figure_name, recv3, recv2, recv3, 1)
 	
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
 	#plot_data(figure_name, recv4, recv2, recv3, 1)
 	
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
 	#plot_data(figure_name, recv5, recv2, recv3, 1)
 	
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
 	#plot_data(figure_name, recv6, recv2, recv3, 1)
 	
 	recv1_2D.append(recv1);
@@ -407,31 +409,31 @@ for row_i in range(0,len(recv1_2D[0])-1):
 	#print column(recv1_2D, row_i)
 
 inv = 10;
-figure_name = 'figure/std_res_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_res_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::inv], recv1_avg[0::inv], recv2, recv3, recv1_std[0::inv], 1, 2)
 
-figure_name = 'figure/std_res_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_res_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, 2)
 
-figure_name = 'figure/std_res_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_res_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::inv], recv3_avg[0::inv], recv2, recv3, recv3_std[0::inv], 1, 2)
 
-figure_name = 'figure/std_res_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_res_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::inv], recv4_avg[0::inv], recv2, recv3, recv4_std[0::inv], 1, 2)
 
-figure_name = 'figure/std_res_'+prefix +str(4)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_res_'+prefix +str(4)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::inv], recv5_avg[0::inv], recv2, recv3, recv5_std[0::inv], 1, 2)
 
-figure_name = 'figure/std_res_'+prefix +str(5)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_res_'+prefix +str(5)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::inv], recv6_avg[0::inv], recv2, recv3, recv6_std[0::inv], 1, 2)
 
-figure_name = 'figure/std_res_t_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_res_t_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::inv], recv1_avg_t[0::inv], recv2, recv3, recv1_std_t[0::inv], 1, 2)
 
-figure_name = 'figure/std_res_t_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_res_t_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::inv], recv2_avg_t[0::inv], recv2, recv3, recv2_std_t[0::inv], 1, 2)
 
-figure_name = 'figure/std_res_t_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
+figure_name = 'figure/std_res_t_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
 plot_error(figure_name, time_data[0::inv], recv3_avg_t[0::inv], recv2, recv3, recv3_std_t[0::inv], 1, 2)
 
 

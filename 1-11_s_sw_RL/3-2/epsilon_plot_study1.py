@@ -44,7 +44,7 @@ def plot_data(figure_name, data1, data2, data3, data_dim):
 		plt.ylabel('#slots')
 		plt.grid()
 		plt.tight_layout()
-		plt.savefig(figure_name)
+		plt.savefig(figure_name, dpi = 300)
 		plt.close()
 		
 def plot_line(figure_name, data1, data2, data3, data_dim):
@@ -59,7 +59,7 @@ def plot_line(figure_name, data1, data2, data3, data_dim):
 		plt.ylabel('Overselection Rate')
 		plt.grid()
 		plt.tight_layout()
-		plt.savefig(figure_name)
+		plt.savefig(figure_name, dpi = 300)
 		plt.close()
 	if(data_dim == 1):
 		plt.plot(data1)
@@ -67,7 +67,7 @@ def plot_line(figure_name, data1, data2, data3, data_dim):
 		plt.ylabel('Overselection Rate')
 		plt.grid()
 		plt.tight_layout()
-		plt.savefig(figure_name)
+		plt.savefig(figure_name, dpi = 300)
 		plt.close()
 		
 def plot_error(figure_name, x_data1, data1, data2, data3, y_error, data_dim, data_type):
@@ -90,7 +90,7 @@ def plot_error(figure_name, x_data1, data1, data2, data3, y_error, data_dim, dat
 		plt.ylim(0.0,800)
 	plt.grid()
 	plt.tight_layout()
-	plt.savefig(figure_name)
+	plt.savefig(figure_name, dpi = 300)
 	plt.close()
 
 # subplot
@@ -323,7 +323,7 @@ plot_error_sub(plt, 223, figure_name, time_data[0::100], recv3_avg[0::100], recv
 
 plot_error_sub(plt, 224, figure_name, time_data[0::100], recv4_avg[0::100], recv3, recv4, recv4_std[0::100], 1, 1)
 
-plt.savefig(figure_name)
+plt.savefig(figure_name, dpi = 300)
 plt.close()
 # compute total sample variance
 recv1_stable_std_t = math.sqrt(recv1_stable_std/(len(recv1_2D[0])-5-max_stime_std))
@@ -514,7 +514,7 @@ plot_error_sub(plt, 223, figure_name, time_inv_vec[0::inv], recv3_avg_inv[0::inv
 
 plot_error_sub(plt, 224, figure_name, time_inv_vec[0::inv], recv4_avg_inv[0::inv], recv2, recv3, recv4_std_inv[0::inv], 1, 2)
 
-plt.savefig(figure_name)
+plt.savefig(figure_name, dpi = 300)
 plt.close()
 
 
