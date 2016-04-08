@@ -178,16 +178,16 @@ def load_reward(prefix, start, inv, res_row_size, f_name, rewad_ylim_max, rewad_
 		recv_total = [sum(item) for item in zipped_list]
 
 
-		figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
+		figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
 		#plot_data(figure_name, recv1, recv2, recv3, 1)
 		
-		figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
+		figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
 		#plot_data(figure_name, recv2, recv2, recv3, 1)
 		
-		figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
+		figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
 		#plot_data(figure_name, recv3, recv2, recv3, 1)
 		
-		figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
+		figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
 		#plot_data(figure_name, recv4, recv2, recv3, 1)
 		
 		
@@ -255,20 +255,20 @@ def load_reward(prefix, start, inv, res_row_size, f_name, rewad_ylim_max, rewad_
 	confidence(recv_std_total,dim)
 	
 	#rewad_ylim_max = 4;
-	figure_name = f_name+prefix +str(0)+count_str+str(i)+'.pdf'
+	figure_name = f_name+prefix +str(0)+count_str+str(i)+'.jpg'
 	plot_error(figure_name, time_data[0::inv], recv1_avg[0::inv], recv2, recv3, recv1_std[0::inv], 1, data_type, rewad_ylim_max)
 
-	figure_name = f_name+prefix +str(1)+count_str+str(i)+'.pdf'
+	figure_name = f_name+prefix +str(1)+count_str+str(i)+'.jpg'
 	#plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, 2)
 	plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, data_type, rewad_ylim_max)
 
-	figure_name = f_name+prefix +str(2)+count_str+str(i)+'.pdf'
+	figure_name = f_name+prefix +str(2)+count_str+str(i)+'.jpg'
 	plot_error(figure_name, time_data[0::inv], recv3_avg[0::inv], recv2, recv3, recv3_std[0::inv], 1, data_type, rewad_ylim_max)
 
-	figure_name = f_name+prefix +str(3)+count_str+str(i)+'.pdf'
+	figure_name = f_name+prefix +str(3)+count_str+str(i)+'.jpg'
 	plot_error(figure_name, time_data[0::inv], recv4_avg[0::inv], recv2, recv3, recv4_std[0::inv], 1, data_type, rewad_ylim_max)
 
-	figure_name = f_name+'total_'+prefix +str(3)+count_str+str(i)+'.pdf'
+	figure_name = f_name+'total_'+prefix +str(3)+count_str+str(i)+'.jpg'
 	plot_error(figure_name, time_data[0::inv], recv_avg_total[0::inv], recv2, recv3, recv_std_total[0::inv], 1, data_type, rewad_ylim_max_total)
 
 	# subfigure
@@ -289,7 +289,7 @@ def load_reward(prefix, start, inv, res_row_size, f_name, rewad_ylim_max, rewad_
 	ax4.axhline(linewidth=4, color = 'black')
 	ax4.axvline(linewidth=4, color = 'black')"""
 
-	figure_name = f_name+'.pdf'
+	figure_name = f_name+'.jpg'
 	plot_error_sub(plt, 411, figure_name, time_data[0::inv], recv1_avg[0::inv], recv2, recv3, recv1_std[0::inv], 1, data_type, rewad_ylim_max)
 
 	#plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, 2)
@@ -337,7 +337,7 @@ for i in range(0,dim):
 	recv1, recv2 = read_csv_data(file_name, 27, 29)
 	recv3, recv4 = read_csv_data(file_name, 31, 33)
 
-	figure_name = 'figure/'+prefix +str(0)+count_str+str(i)+'.pdf'
+	figure_name = 'figure/'+prefix +str(0)+count_str+str(i)+'.jpg'
 	#plot_data(figure_name, recv1, recv2, recv3, 3)
 	
 	print i
@@ -471,18 +471,18 @@ confidence(recv4_std,dim)
 
 # ----------------------------------------------------------------------
 over_ylim_max = 0.03
-figure_name = 'figure/std_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
+figure_name = 'figure/std_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 plot_error(figure_name, time_data[0::100], recv1_avg[0::100], recv2, recv3, recv1_std[0::100], 1, 1, over_ylim_max)
 
-figure_name = 'figure/std_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
+figure_name = 'figure/std_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 plot_error(figure_name, time_data[0::100], recv2_avg[0::100], recv2, recv3, recv2_std[0::100], 1, 1, over_ylim_max)
 
 
-figure_name = 'figure/std_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
+figure_name = 'figure/std_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 plot_error(figure_name, time_data[0::100], recv3_avg[0::100], recv2, recv3, recv3_std[0::100], 1, 1, over_ylim_max)
 
 
-figure_name = 'figure/std_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
+figure_name = 'figure/std_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 plot_error(figure_name, time_data[0::100], recv4_avg[0::100], recv3, recv4, recv4_std[0::100], 1, 1, over_ylim_max)
 
 # subplot
@@ -504,7 +504,7 @@ ax3.axvline(linewidth=4, color = 'black')
 ax4.axhline(linewidth=4, color = 'black')
 ax4.axvline(linewidth=4, color = 'black')"""
 
-figure_name = 'figure/std_avg'+ alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+ '.pdf'
+figure_name = 'figure/std_avg'+ alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+ '.jpg'
 plot_error_sub(plt, 411, figure_name, time_data[0::100], recv1_avg[0::100], recv2, recv3, recv1_std[0::100], 1, 1, over_ylim_max)
 
 plot_error_sub(plt, 412, figure_name, time_data[0::100], recv2_avg[0::100], recv2, recv3, recv2_std[0::100], 1, 1, over_ylim_max)
@@ -624,16 +624,16 @@ for i in range(0,dim):
 	recv_total = [sum(item) for item in zipped_list]
 
 
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
 	#plot_data(figure_name, recv1, recv2, recv3, 1)
 	
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
 	#plot_data(figure_name, recv2, recv2, recv3, 1)
 	
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
 	#plot_data(figure_name, recv3, recv2, recv3, 1)
 	
-	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.pdf'
+	figure_name = 'figure1/'+prefix +str(0)+count_str+str(i)+str(1)+'.jpg'
 	#plot_data(figure_name, recv4, recv2, recv3, 1)
 	
 	
@@ -726,27 +726,27 @@ for row_i in range(0,len(recv1_2D[0])-inv):
 #print recv1_avg_inv
 
 res_ylim_max = 300;
-figure_name = 'figure/std_res_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
+figure_name = 'figure/std_res_'+prefix +str(0)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 plot_error(figure_name, time_data[0::inv], recv1_avg[0::inv], recv2, recv3, recv1_std[0::inv], 1, 2, res_ylim_max)
 
-figure_name = 'figure/std_res_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
+figure_name = 'figure/std_res_'+prefix +str(1)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 #plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, 2)
 plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, 2, res_ylim_max)
 
-figure_name = 'figure/std_res_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
+figure_name = 'figure/std_res_'+prefix +str(2)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 plot_error(figure_name, time_data[0::inv], recv3_avg[0::inv], recv2, recv3, recv3_std[0::inv], 1, 2, res_ylim_max)
 
-figure_name = 'figure/std_res_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
+figure_name = 'figure/std_res_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 plot_error(figure_name, time_data[0::inv], recv4_avg[0::inv], recv2, recv3, recv4_std[0::inv], 1, 2, res_ylim_max)
 
-figure_name = 'figure/std_res_total_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.pdf'
+figure_name = 'figure/std_res_total_'+prefix +str(3)+count_str+str(i)+alpha_str+str(alpha)+gamma_str+str(gamma)+ebuse_str+str(ebuse)+'.jpg'
 plot_error(figure_name, time_data[0::inv], recv_avg_total[0::inv], recv2, recv3, recv_std_total[0::inv], 1, 2, 1000)
 
 # subfigure
 fig = plt.gcf()
 fig.set_size_inches(8, 6.5)
 
-figure_name = 'figure/std_res.pdf'
+figure_name = 'figure/std_res.jpg'
 plot_error_sub(plt, 221, figure_name, time_data[0::inv], recv1_avg[0::inv], recv2, recv3, recv1_std[0::inv], 1, 2, res_ylim_max)
 
 #plot_error(figure_name, time_data[0::inv], recv2_avg[0::inv], recv2, recv3, recv2_std[0::inv], 1, 2)
